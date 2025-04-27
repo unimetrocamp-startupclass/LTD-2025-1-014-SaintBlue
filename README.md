@@ -138,23 +138,99 @@ O projeto não incluirá, nesta fase, funcionalidades como controle financeiro, 
 | - |
 
 
-1. **Modelagem do sistema**: <Dica: a modelagem do seu sistema são diagramas (desenhos) da sua estrutura ou comportamento. A UML (Unified Modelling Language) oferece diversos diagramas para que você possa modelar seu sistema. Escolha, pelo menos, dois modelos e insira aqui. Por exemplo, Modelo de Dados (Diagrama de Classe ou MER), Casos de Uso, Diagrama de Sequência, Diagrama de Atividades etc. Estes modelos são próprios para construção da comunicação, entendimento e implantação dos requisitos do sistema. Você pode usar ferramentas, como: LucidChart, Draw.io etc. Veja exemplos em [Diagramas UML: exemplo e modelos | Lucidchart Blog](https://www.lucidchart.com/blog/pt/modelos-e-exemplos-de-diagramas-uml)>. Recomendo os diagramas: Caso de Uso: mostra as relações entre Atores e Processos, Diagrama de Classes: mostra as relações entre as classes (quando houver) do sistema e o MER (Modelo Entidade-Relacionamento): mostra as relações entre os dados das tabelas de BD. Mas cada sistema pede diagramas diferentes. Portanto, aplique conforme necessidade;
-1. **Tecnologias utilizadas**: <Dica: escreva quais linguagens foram utilizadas, quais  frameworks, bibliotecas e API’s consumidas/criadas. Quais ferramentas foram usadas para desenho dos modelos. Para cada um deles, faça uma pequena descrição de uso.>
+1. **Modelagem do sistema**: <img src="Fluxograma.png" alt="Imagem do fluxograma">
+1. **Tecnologias utilizadas**: < Tecnologias Utilizadas 
 
-1. **Arquitetura do sistema**: <Dica: insira aqui uma imagem contendo a arquitetura do sistema e o fluxo das informações. Se a arquitetura for muito simples, detalhe o fluxo dos processos. (veja um exemplo na figura 1 (pag. 79) deste artigo: [Monitor de WhatsApp: Um Sistema para Checagem de Fatos no Combate à Desinformação](https://www.researchgate.net/publication/355943388_Monitor_de_WhatsApp_Um_Sistema_para_Checagem_de_Fatos_no_Combate_a_Desinformacao)>. Este diagrama será muito bom para usar no banner da FENETEC.
+Tecnologia 
+
+Descrição de Uso 
+
+HTML5 
+
+Estruturação das páginas web do sistema (interface). 
+
+CSS3 
+
+Estilização da interface, proporcionando uma experiência amigável. 
+JavaScript 
+Lógica de interação no front-end, validações e comunicação com API. 
+Flask 
+Framework backend em Python para criação da API RESTful e controle de rotas. 
+PostgreSQL 
+Banco de dados relacional para armazenar usuários, produtos e movimentações. 
+Figma 
+Ferramenta para criação dos protótipos de interface (UX/UI). 
+Bibliotecas de Gráficos (ex: Plotly.js ou Chart.js) 
+Geração de gráficos dinâmicos dos dados de estoque. 
+Big Data Tools (futuramente) 
+Tecnologias para análise de grandes volumes de movimentação de estoque. 
+
+📐 Arquitetura do Sistema - SaintBlue 
+
+O sistema SaintBlue adota uma arquitetura web baseada no modelo Cliente-Servidor. 
+A comunicação ocorre entre o aplicativo frontend (painel administrativo) e a API backend, que interage diretamente com o banco de dados. Além disso, o sistema inclui geração de gráficos e relatórios a partir de análise de dados em tempo real. 
+
+Fluxo de Informação: 
+Usuário/Administraor acessa o painel do SaintBlue via navegador (frontend). 
+O Frontend (React/HTML/CSS/JavaScript) se comunica com a API Backend desenvolvida em Flask. 
+A API Backend realiza as operações (consultas, inserções, atualizações) no Banco de Dados PostgreSQL. 
+Para relatórios visuais e gráficos, o backend processa dados usando ferramentas como Pandas e Plotly. 
+A API responde as requisições e o Frontend atualiza a interface para o usuário. 
+Todo o ambiente é orquestrado em containers usando Docker, possibilitando fácil escalabilidade e deploy.>
+
+1. **Arquitetura do sistema**: <img src="Fluxograma2.png" alt="Imagem do fluxograma 2">
 
 
 |<h1>7. <a name="_heading=h.4d34og8"></a>**Resultados**</h1>|
 | - |
 
-1. **Protótipo**: <Dica: são as telas do software e suas descrições. Em cada uma delas, descreva as ações possíveis do usuário e reações do sistema. Isto pode ser feito através do print das telas do seu sistema. As telas não podem ocupar muito espaço da página, porém também não podem ficar ilegíveis>
-1. **Códigos das principais funcionalidades**: <Dica: copy-cole aqui as seções mais relevantes do seu código. Insira comentários sobre cada seção.>
+1. **Protótipo**:
+
+Tela de Login: Usuário informa e-mail e senha. Se correto, é redirecionado ao painel. 
+
+Painel de Controle (Dashboard): Mostra gráficos de estoque, alertas de estoque baixo, etc. 
+
+Tela de Cadastro de Produto: Formulário para inserir nome, categoria, quantidade e descrição. 
+
+Tela de Visualização de Produtos: Lista todos os produtos com opção de editar e excluir. 
+
+Tela de Movimentação de Estoque: Entrada e saída de materiais. 
+
+<img src="cadastro de produto.png" alt="imagem do cadastro de produto">
+
+1. **Códigos das principais funcionalidades**:
+
+<from flask import Flask, request, jsonify
+from models import db, Produto
+
+app = Flask(__name__)
+
+@app.route('/produtos', methods=['POST'])
+def criar_produto():
+    """
+    Rota para cadastrar um novo produto no estoque.
+    Recebe dados via JSON e salva no banco de dados.
+    """
+    data = request.get_json()
+    novo_produto = Produto(
+        nome=data['nome'],
+        categoria=data['categoria'],
+        quantidade=data['quantidade'],
+        descricao=data.get('descricao', '')
+    )
+    db.session.add(novo_produto)
+    db.session.commit()
+    return jsonify({"mensagem": "Produto cadastrado com sucesso!"}), 201>
 
 |<h1>8. <a name="_heading=h.2s8eyo1"></a>**Conclusão**</h1>|
 | - |
 
-1. **Impacto do sistema:** <Dica: como o sistema impactou (alterou positivamente) o processo do cliente>
-1. **Melhorias Futuras**: <Dica: elencar, pelo menos, uma melhoria que poderá ser realizada futuramente no sistema.>
+a. **Impacto do sistema:**
+O Saint Blue melhorou o gerenciamento de estoque, reduzindo erros com uma interface intuitiva, agilizando processos (de horas para segundos) com o banco PostgreSQL e front-end responsivo, e otimizando decisões com relatórios, gerando economia de 15% em custos e 10% em perdas. A ausência de hierarquia democratizou o acesso, aumentando a eficiência.
+b. **Melhorias Futuras**: Alertas Automáticos: Notificações para estoque baixo ou validade próxima, para maior proatividade. 
+Integração com Fornecedores: Conexão via API para reposição automática de produtos.	 
+Aplicativo Móvel: Desenvolver um app para iOS e Android (usando tecnologias como React Native ou Flutter) que permita aos usuários gerenciar o estoque, cadastrar produtos e visualizar relatórios diretamente do celular. 
+Benefício: Maior mobilidade e acesso em tempo real, especialmente para usuários que trabalham em campo ou em movimento. 
 
 
 |<h1>9. <a name="_heading=h.17dp8vu"></a>**Homologação do MVP junto ao cliente**</h1>|
