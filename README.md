@@ -200,27 +200,71 @@ Tela de Movimentação de Estoque: Entrada e saída de materiais.
 
 b. **Códigos das principais funcionalidades**:
 
-<from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify
 from models import db, Produto
 
 app = Flask(__name__)
+
+# Configuração do banco de dados (exemplo com PostgreSQL)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://usuario:senha@localhost:5432/saintblue'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
+
+# Criação das tabelas no banco (execute isso uma vez, ou use migrações)
+with app.app_context():
+    db.create_all()
 
 @app.route('/produtos', methods=['POST'])
 def criar_produto():
     """
     Rota para cadastrar um novo produto no estoque.
     Recebe dados via JSON e salva no banco de dados.
+    Exemplo de corpo da requisição:
+    {
+        "codigo": "ABC123",
+        "nome": "Camiseta",
+        "condicao": "Nova",
+        "cor": "Azul",
+        "marca": "Nike",
+        "peso": 0.2,
+        "preco": 49.90,
+        "quantidade": 10,
+        "descricao": "Camiseta de algodão tamanho M"
+    }
     """
-    data = request.get_json()
-    novo_produto = Produto(
-        nome=data['nome'],
-        categoria=data['categoria'],
-        quantidade=data['quantidade'],
-        descricao=data.get('descricao', '')
-    )
-    db.session.add(novo_produto)
-    db.session.commit()
-    return jsonify({"mensagem": "Produto cadastrado com sucesso!"}), 201>
+    try:
+        data = request.get_json()
+
+        # Validação básica dos campos obrigatórios
+        campos_obrigatorios = ['codigo', 'nome', 'preco', 'quantidade']
+        for campo in campos_obrigatorios:
+            if campo not in data or data[campo] is None:
+                return jsonify({"erro": f"Campo '{campo}' é obrigatório!"}), 400
+
+        # Criação do novo produto com todos os campos
+        novo_produto = Produto(
+            codigo=data['codigo'],
+            nome=data['nome'],
+            condicao=data.get('condicao', None),  # Opcional, usa None se não fornecido
+            cor=data.get('cor', None),  # Opcional
+            marca=data.get('marca', None),  # Opcional
+            peso=data.get('peso', None),  # Opcional
+            preco=data['preco'],
+            quantidade=data['quantidade'],
+            descricao=data.get('descricao', None)  # Opcional
+        )
+
+        db.session.add(novo_produto)
+        db.session.commit()
+
+        return jsonify({"mensagem": "Produto cadastrado com sucesso!"}), 201
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"erro": f"Falha ao cadastrar produto: {str(e)}"}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 |<h1>8. <a name="_heading=h.2s8eyo1"></a>**Conclusão**</h1>|
 | - |
