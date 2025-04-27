@@ -138,8 +138,8 @@ O projeto não incluirá, nesta fase, funcionalidades como controle financeiro, 
 | - |
 
 
-1. **Modelagem do sistema**: <img src="Fluxograma.png" alt="Imagem do fluxograma">
-1. **Tecnologias utilizadas**: < Tecnologias Utilizadas 
+a. **Modelagem do sistema**: <img src="Fluxograma.png" alt="Imagem do fluxograma">
+b. **Tecnologias utilizadas**: < Tecnologias Utilizadas 
 
 Tecnologia 
 
@@ -178,13 +178,13 @@ Para relatórios visuais e gráficos, o backend processa dados usando ferramenta
 A API responde as requisições e o Frontend atualiza a interface para o usuário. 
 Todo o ambiente é orquestrado em containers usando Docker, possibilitando fácil escalabilidade e deploy.>
 
-1. **Arquitetura do sistema**: <img src="Fluxograma2.png" alt="Imagem do fluxograma 2">
+c. **Arquitetura do sistema**: <img src="Fluxograma2.png" alt="Imagem do fluxograma 2">
 
 
 |<h1>7. <a name="_heading=h.4d34og8"></a>**Resultados**</h1>|
 | - |
 
-1. **Protótipo**:
+a. **Protótipo**:
 
 Tela de Login: Usuário informa e-mail e senha. Se correto, é redirecionado ao painel. 
 
@@ -196,9 +196,9 @@ Tela de Visualização de Produtos: Lista todos os produtos com opção de edita
 
 Tela de Movimentação de Estoque: Entrada e saída de materiais. 
 
-<img src="cadastro de produto.png" alt="imagem do cadastro de produto">
+<img src="SaintBlue cadastro de produtos.png" alt="imagem do cadastro de produto">
 
-1. **Códigos das principais funcionalidades**:
+b. **Códigos das principais funcionalidades**:
 
 <from flask import Flask, request, jsonify
 from models import db, Produto
