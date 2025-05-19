@@ -93,6 +93,25 @@
     color: #2d979b;
   }
 
+  .graficos {
+    display: flex;         /* alinha gráficos em linha */
+    gap: 40px;             /* espaço entre os gráficos */
+    margin-top: 40px;      /* distância do conteúdo acima */
+    flex-wrap: wrap;       /* quebra linha se não couber */
+    justify-content: center; /* centraliza os gráficos */
+  }
+
+  .graficoItem {
+    flex: 1 1 300px;       /* cada gráfico tem mínimo 300px e cresce */
+    max-width: 400px;      /* limite máximo para evitar que cresçam demais */
+    height: 320px;         /* altura fixa pra controlar */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    border: 2px solid red;
+}
+
 @media (min-width: 1024px){
     .geral {
         min-height: 100vh; /* Altura total da tela */

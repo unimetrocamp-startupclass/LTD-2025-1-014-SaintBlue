@@ -113,7 +113,7 @@ function Sidebar() {
                                 }
                             >
                                 <i className="bi bi-house-door"></i>
-                                <span>Inicio</span>
+                                <span>Dashboard</span>
                             </NavLink>
                         </li>
                         <li>

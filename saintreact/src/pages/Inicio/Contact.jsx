@@ -59,6 +59,7 @@ const StyledWrapper = styled.div`
     height:50px;
     margin-left: 15%;
     margin-bottom: 0.4rem;
+    margin-top: 7rem;
   }
 
   .social-button {

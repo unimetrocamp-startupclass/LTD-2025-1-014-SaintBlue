@@ -8,6 +8,7 @@ import Estoque from "./pages/Estoque/Estoque";
 import  UpdateProduto  from "./pages/UpdateProduto/UpdateProduto";
 import  CreateProduto  from "./pages/CreateProduto/CreateProduto";
 import Erro from "./pages/Erro/Erro";
+import { Navigate } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar/Sidebar";
 import "./transitions.css";
@@ -35,11 +36,11 @@ function RoutesApp() {
           <Routes location={location}>
             <Route path="/" element={<Land />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/inicio" element={<Inicio />} />
+            <Route path="/dashboard" element={<Inicio />} />
+            <Route path="/inicio" element={<Navigate to="/dashboard" />} />
             <Route path="/estoque" element={<Estoque />} />
-            <Route path='/createProduct' element={<CreateProduto/>}/>
-            <Route path='/updateProduct/:codigo' element={<UpdateProduto/>}/>       
-
+            <Route path="/createProduct" element={<CreateProduto />} />
+            <Route path="/updateProduct/:codigo" element={<UpdateProduto />} />
             <Route path="*" element={<Erro />} />
           </Routes>
         </div>
