@@ -614,15 +614,12 @@ Benefício: Maior mobilidade e acesso em tempo real, especialmente para usuário
 Após as entregas parciais, realizadas de acordo com os requisitos do sistema  e cronograma, o MVP foi apresentado em uma reunião, realizada entre o time de desenvolvedores e o cliente.
 
 
-|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.003.png)|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.004.jpeg)|
-| :-: | :-: |
 <img src="Foto1.png" alt="Imagem do Grupo">
 |Homologação do MVP – Gabriel Flausino, Richard Gois, Pedro Henrique, Emely Oliveira, Daniel Vitor.|
 
 <img src="Foto2.png" alt="Apresentação">
 |Daniel Vitor apresentando o projeto para a cliente.|
 
-|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.005.jpeg)|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.006.jpeg)|
 <img src="Foto3.png" alt="Grupo">
 |Participantes da homologação assistindo a apresentação|
 
