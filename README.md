@@ -616,17 +616,17 @@ Após as entregas parciais, realizadas de acordo com os requisitos do sistema  e
 
 |![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.003.png)|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.004.jpeg)|
 | :-: | :-: |
-<img src="Foto1.png" alt="Imagem do Grupo de desenvolvimento">
+<img src="Foto1.png" alt="Imagem do Grupo">
 |Homologação do MVP – Gabriel Flausino, Richard Gois, Pedro Henrique, Emely Oliveira, Daniel Vitor.|
 
-<img src="Foto2.png" alt="Imagem do Grupo de desenvolvimento">
+<img src="Foto2.png" alt="Apresentação">
 |Daniel Vitor apresentando o projeto para a cliente.|
 
 |![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.005.jpeg)|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.006.jpeg)|
-<img src="Foto3.png" alt="Imagem do Grupo de desenvolvimento">
+<img src="Foto3.png" alt="Grupo">
 |Participantes da homologação assistindo a apresentação|
 
-<img src="Foto4.png" alt="Imagem do Grupo de desenvolvimento">
+<img src="Foto4.png" alt="Desenvolvimento">
 |Participantes da homologação|
 
 Segue abaixo a lista de presentes na homologação do MVP.
@@ -655,10 +655,10 @@ Ao final da apresentação, o sistema foi homologado pelo cliente.
 |![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.008.jpeg)|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.009.png)|
 | :-: | :-: |
 
-<img src="grupo1.png" alt="Imagem do Grupo de desenvolvimento">
+<img src="grupo1.png" alt="Projeto">
 |Equipe desenvolvedora do Saint Blue. Pedro Henrique, Daniel Vitor, Gabriel Flausino e Richard Gois
 
-<img src="apresentando.png" alt="Imagem do Grupo de desenvolvimento">
+<img src="apresentando.png" alt="Apresentando projeto">
 |Daniel Vitor apresentando a home page do site.|
 
 |<foto 3: foto plano geral da apresentação de frente para o fundo da sala>|
