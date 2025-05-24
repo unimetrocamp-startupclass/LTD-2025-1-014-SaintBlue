@@ -616,10 +616,10 @@ Após as entregas parciais, realizadas de acordo com os requisitos do sistema  e
 
 |![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.003.png)|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.004.jpeg)|
 | :-: | :-: |
-<img src="foto1.png" alt="Imagem do Grupo de desenvolvimento">
+<img src="Foto1.png" alt="Imagem do Grupo de desenvolvimento">
 |Homologação do MVP – Gabriel Flausino, Richard Gois, Pedro Henrique, Emely Oliveira, Daniel Vitor.|
 
-<img src="foto2.png" alt="Imagem do Grupo de desenvolvimento">
+<img src="Foto2.png" alt="Imagem do Grupo de desenvolvimento">
 |Daniel Vitor apresentando o projeto para a cliente.|
 
 |![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.005.jpeg)|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.006.jpeg)|
