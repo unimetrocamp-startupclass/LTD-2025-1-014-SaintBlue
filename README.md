@@ -617,13 +617,13 @@ Após as entregas parciais, realizadas de acordo com os requisitos do sistema  e
 <img src="Foto1.png" alt="Imagem do Grupo">
 |Homologação do MVP – Gabriel Flausino, Richard Gois, Pedro Henrique, Emely Oliveira, Daniel Vitor.|
 
-<img src="Foto2.png" alt="Apresentação">
+<img src="Foto2.jpeg" alt="Apresentação">
 |Daniel Vitor apresentando o projeto para a cliente.|
 
-<img src="Foto3.png" alt="Grupo">
+<img src="Foto3.jpeg" alt="Grupo">
 |Participantes da homologação assistindo a apresentação|
 
-<img src="Foto4.png" alt="Desenvolvimento">
+<img src="Foto4.jpeg" alt="Desenvolvimento">
 |Participantes da homologação|
 
 Segue abaixo a lista de presentes na homologação do MVP.
@@ -652,7 +652,7 @@ Ao final da apresentação, o sistema foi homologado pelo cliente.
 |![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.008.jpeg)|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.009.png)|
 | :-: | :-: |
 
-<img src="grupo1.png" alt="Projeto">
+<img src="grupo1.jpeg" alt="Projeto">
 |Equipe desenvolvedora do Saint Blue. Pedro Henrique, Daniel Vitor, Gabriel Flausino e Richard Gois
 
 <img src="apresentando.png" alt="Apresentando projeto">
