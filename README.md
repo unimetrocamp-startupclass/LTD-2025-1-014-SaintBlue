@@ -616,9 +616,18 @@ Após as entregas parciais, realizadas de acordo com os requisitos do sistema  e
 
 |![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.003.png)|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.004.jpeg)|
 | :-: | :-: |
-|Homologação do MVP – Gabriel Flausino, Richard Gois, Pedro Henrique, Emely Oliveira, Daniel Vitor.|Daniel Vitor apresentando o projeto para a cliente.|
+<img src="foto1.png" alt="Imagem do Grupo de desenvolvimento">
+|Homologação do MVP – Gabriel Flausino, Richard Gois, Pedro Henrique, Emely Oliveira, Daniel Vitor.|
+
+<img src="foto2.png" alt="Imagem do Grupo de desenvolvimento">
+|Daniel Vitor apresentando o projeto para a cliente.|
+
 |![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.005.jpeg)|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.006.jpeg)|
-|Participantes da homologação assistindo a apresentação|Participantes da homologação|
+<img src="Foto3.png" alt="Imagem do Grupo de desenvolvimento">
+|Participantes da homologação assistindo a apresentação|
+
+<img src="Foto4.png" alt="Imagem do Grupo de desenvolvimento">
+|Participantes da homologação|
 
 Segue abaixo a lista de presentes na homologação do MVP.
 
@@ -645,9 +654,18 @@ Ao final da apresentação, o sistema foi homologado pelo cliente.
 
 |![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.008.jpeg)|![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.009.png)|
 | :-: | :-: |
-|Equipe desenvolvedora do Saint Blue. Pedro Henrique, Daniel Vitor, Gabriel Flausino e Richard Gois |Daniel Vitor apresentando a home page do site.|
-|<foto 3: foto plano geral da apresentação de frente para o fundo da sala>|<foto 4:  foto plano geral da apresentação do fundo para a frente da sala>|
-|<p>Não foi possivel tirar essa foto.</p><p></p>|Não foi possivel tirar essa foto.|
+
+<img src="grupo1.png" alt="Imagem do Grupo de desenvolvimento">
+|Equipe desenvolvedora do Saint Blue. Pedro Henrique, Daniel Vitor, Gabriel Flausino e Richard Gois
+
+<img src="apresentando.png" alt="Imagem do Grupo de desenvolvimento">
+|Daniel Vitor apresentando a home page do site.|
+
+|<foto 3: foto plano geral da apresentação de frente para o fundo da sala>|
+|Não foi possivel tirar essa foto.|
+
+|<foto 4:  foto plano geral da apresentação do fundo para a frente da sala>|
+|<p>Não foi possivel tirar essa foto.</p><p></p>|
 
 Segue abaixo a lista de presentes na apresentação.
 
@@ -761,7 +779,7 @@ Desta forma, autorizo, em caráter de confidencialidade:
 Campinas, 25 de abril de 2025.
 
 
-
+<img src="assinatura2.png" alt="assinatura">
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_![](Aspose.Words.95c66ac4-a3d0-4992-a117-0ca3e1ebcab6.012.png)\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 
