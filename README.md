@@ -192,7 +192,6 @@ Aqui é onde colocaremos as **telas do sistema** com **descrição** do que o us
 - Ações possíveis (clicar, cadastrar, consultar, etc.)
 - Respostas esperadas do sistema (sucesso, erro, carregamento, etc.)
 
-<img src="Linkedin.png" alt="Imagem da pagina do linkedin">
 
 **Códigos das principais funcionalidades**: ## Endpoints da API de Gestão de Estoque ### \*\*Cadastrar Novo Usuário\*\* - \*\*Método\*\*: POST - \*\*Rota\*\*: /new\_user \*\*Descrição\*\*: Este endpoint permite cadastrar um novo usuário. Ele aceita um corpo de requisição JSON com as informações do usuário. \*\*Exemplo de Request Body\*\*: json\
 {\
