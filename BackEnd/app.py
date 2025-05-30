@@ -318,10 +318,81 @@ def buscar_produto(codigo):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/dashboard/quantidade_por_produto', methods=['GET'])
+def quantidade_por_produto():
+    try:
+        conn = get_db_connection()
+        if conn is None:
+            return jsonify({"error": "Erro ao conectar ao banco de dados"}), 500
+
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT TRIM(LOWER(produto)) AS nome_produto, SUM(quantidade)
+            FROM estoque
+            GROUP BY nome_produto
+            ORDER BY nome_produto;
+        """)
+        dados = cur.fetchall()
+        cur.close()
+        conn.close()
+
+        return jsonify([
+            {"produto": nome.capitalize(), "quantidade": qtd} for nome, qtd in dados
+        ])
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/dashboard/produtos_por_marca', methods=['GET'])  # Rota para gráfico de pizza com quantidade de produtos por marca
+def produtos_por_marca():
+    try:
+        conn = get_db_connection()  # Conecta ao banco
+        cur = conn.cursor()  # Cria o cursor
+
+        cur.execute("""
+            SELECT marca, COUNT(*) 
+            FROM estoque 
+            GROUP BY marca
+        """)  # Agrupa por marca e conta quantos produtos cada marca tem
+        dados = cur.fetchall()  # Recupera os resultados
+
+        cur.close()  # Fecha o cursor
+        conn.close()  # Fecha a conexão
+
+        return jsonify([{"marca": d[0], "total": d[1]} for d in dados])  # Retorna os dados em JSON
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500  # Retorna erro
+    
+@app.route('/dashboard/quantidade_por_condicao', methods=['GET'])  # Rota para gráfico de colunas com total por condição (novo, usado, etc)
+def quantidade_por_condicao():
+    try:
+        conn = get_db_connection()  # Abre conexão com o banco
+        cur = conn.cursor()  # Cria cursor SQL
+
+        cur.execute("""
+            SELECT condicao, SUM(quantidade) 
+            FROM estoque 
+            GROUP BY condicao
+        """)  # Agrupa por condição e soma as quantidades
+        dados = cur.fetchall()  # Pega os dados da consulta
+
+        cur.close()  # Fecha o cursor
+        conn.close()  # Fecha a conexão
+
+        return jsonify([{"condicao": d[0], "quantidade": d[1]} for d in dados])  # Retorna os dados formatados em JSON
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500  # Retorna erro em caso de falha
+
+
+from flask import render_template  # no topo, onde estão os imports
+
+@app.route('/dashboard', methods=['GET'])  # Nova rota para exibir o HTML com gráficos
+def dashboard():
+    return render_template('dashboard.html')  # Retorna o HTML que está na pasta /templates
+
 app.run(
     host='0.0.0.0',
     port=5000,
-    ssl_context = ('/etc/ssl/server.crt', '/etc/ssl/server.key'),
+    #ssl_context = ('/etc/ssl/server.crt', '/etc/ssl/server.key'),
     debug=True
 )
-
