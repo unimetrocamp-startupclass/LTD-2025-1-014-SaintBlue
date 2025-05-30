@@ -382,14 +382,6 @@ def quantidade_por_condicao():
         return jsonify([{"condicao": d[0], "quantidade": d[1]} for d in dados])  # Retorna os dados formatados em JSON
     except Exception as e:
         return jsonify({"error": str(e)}), 500  # Retorna erro em caso de falha
-
-
-from flask import render_template  # no topo, onde estão os imports
-
-@app.route('/dashboard', methods=['GET'])  # Nova rota para exibir o HTML com gráficos
-def dashboard():
-    return render_template('dashboard.html')  # Retorna o HTML que está na pasta /templates
-
 app.run(
     host='0.0.0.0',
     port=5000,
