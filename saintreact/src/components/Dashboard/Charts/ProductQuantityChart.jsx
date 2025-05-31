@@ -1,20 +1,19 @@
-//saint/src/components/Dashboard/Charts/PieChart.jsx
+//saintreact/src/components/Dashboard/Charts/LineChart.jsx
 
 import React, { useState, useEffect } from "react";
 import {
-  PieChart,
-  Pie,
-  Cell,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
   Tooltip,
-  Legend,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 import axios from "axios";
 import styles from "../../../pages/Inicio/Inicio.module.css";
 
-const COLORS = ["#4A90E2", "#50C878", "#FFD60A", "#FF6F61"];
-
-const PieChartVendas = () => {
+const ProductQuantityChart = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,13 +22,17 @@ const PieChartVendas = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/dashboard/produtos_por_marca"
+          "http://localhost:5000/dashboard/quantidade_por_produto"
         );
-        const formattedData = response.data.map((item) => ({
-          name: item.marca,
-          value: item.total,
-        }));
-        setData(formattedData);
+        // Pega os top 5 produtos com maior quantidade
+        const sortedData = response.data
+          .sort((a, b) => b.quantidade - a.quantidade)
+          .slice(0, 5)
+          .map((item) => ({
+            name: item.produto,
+            quantidade: item.quantidade,
+          }));
+        setData(sortedData);
         setLoading(false);
       } catch (err) {
         setError("Erro ao carregar os dados do gráfico");
@@ -50,23 +53,15 @@ const PieChartVendas = () => {
 
   return (
     <div>
-      <h2 className={styles.chartTitle}>Produtos por Marca</h2>
+      <h2 className={styles.chartTitle}>Top 5 Produtos por Quantidade</h2>
       <ResponsiveContainer width="100%" height={260}>
-        <PieChart>
-          <Pie
-            data={data}
-            dataKey="value"
-            nameKey="name"
-            outerRadius={80}
-            label
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
+        <BarChart
+          data={data}
+          margin={{ top: 10, right: 20, left: 0, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" stroke="#DDE1E6" />
+          <XAxis dataKey="name" tick={{ fill: "#333333", fontSize: 12 }} />
+          <YAxis tick={{ fill: "#333333", fontSize: 12 }} />
           <Tooltip
             contentStyle={{
               backgroundColor: "#FFFFFF",
@@ -76,11 +71,16 @@ const PieChartVendas = () => {
               padding: "8px",
             }}
           />
-          <Legend />
-        </PieChart>
+          <Bar
+            dataKey="quantidade"
+            fill="#50C878"
+            isAnimationActive={true}
+            animationDuration={800}
+          />
+        </BarChart>
       </ResponsiveContainer>
     </div>
   );
 };
 
-export default PieChartVendas;
+export default ProductQuantityChart;

@@ -1,57 +1,70 @@
+//saintreact/src/pages/Inicio/Inicio.jsx
+
 import React from "react";
 import styles from "./Inicio.module.css";
-import Carregador from "./Carregador";
-import Contact from "./Contact";
 import BarChart from "../../components/Dashboard/Charts/BarChart";
 import PieChart from "../../components/Dashboard/Charts/PieChart";
-import LineChart from "../../components/Dashboard/Charts/LineChart";
+import ProductQuantityChart from "../../components/Dashboard/Charts/ProductQuantityChart";
 
 const Inicio = () => {
   return (
     <main className={styles.geral}>
       <div className={styles.header}>
-        <div className={styles.bemVindo}>
-          <Carregador />
+        <div className={styles.illustrationSection}>
+          <div className={styles.illustrationPlaceholder}>
+            <p>Ilustração: Carinha com caixas</p>
+          </div>
         </div>
-        <div className={styles.container}>
-          <h1 className={styles.aba}>Início</h1>
+        <h1 className={styles.title}>DASHBOARD Controle de Estoque</h1>
+      </div>
+
+      {/* Cards de métricas no topo */}
+      <div className={styles.metricsCards}>
+        <div className={styles.metricCard}>
+          <span className={styles.metricIcon}>💰</span>
+          <h2 className={styles.metricTitle}>Faturamento</h2>
+          <p className={styles.metricValue}>R$ 912 Mi</p>
+          <p className={styles.metricChange}>vs. anterior: 20%</p>
+        </div>
+        <div className={styles.metricCard}>
+          <span className={styles.metricIcon}>🏠</span>
+          <h2 className={styles.metricTitle}>Valor em Estoque</h2>
+          <p className={styles.metricValue}>R$ 23 Mil</p>
+        </div>
+        <div className={styles.metricCard}>
+          <span className={styles.metricIcon}>❌</span>
+          <h2 className={styles.metricTitle}>Ruptura de Estoque</h2>
+          <p className={styles.metricValue}>6,99%</p>
+        </div>
+        <div className={styles.metricCard}>
+          <span className={styles.metricIcon}>🔄</span>
+          <h2 className={styles.metricTitle}>Giro de Estoque</h2>
+          <p className={styles.metricValue}>22,96 Mil</p>
         </div>
       </div>
 
-      {/* Primeiro, suas caixas com textos e valores */}
-      <div className={styles.cards}>
-        <div className={styles.caixa} id="caixa_faturamento">
-          <h2 className={styles.titulo}>Faturamento 2024</h2>
-          <p className={styles.valor}>R$ 10.000</p>
-        </div>
-
-        <div className={styles.caixa} id="caixa_venda">
-          <h2 className={styles.titulo}>Vendas Hoje</h2>
-          <p className={styles.valor}>R$ 5.000</p>
-        </div>
-
-        <div className={styles.caixa} id="caixa_estoque">
-          <h2 className={styles.titulo}>Produtos em Estoque</h2>
-          <p className={styles.valor}>120 unid</p>
+      {/* Seção de gráficos */}
+      <div className={styles.chartsSection}>
+        <div className={styles.graficos}>
+          <div className={styles.graficoItem}>
+            <BarChart />
+          </div>
+          <div className={styles.graficoItem}>
+            <PieChart />
+          </div>
+          <div className={styles.graficoItem}>
+            <ProductQuantityChart />
+          </div>
         </div>
       </div>
 
-      {/* Agora, gráficos separados, fora das caixas */}
-      <div className={styles.graficos}>
-        <div className={styles.graficoItem}>
-          <BarChart />
-        </div>
-
-        <div className={styles.graficoItem}>
-          <PieChart />
-        </div>
-
-        <div className={styles.graficoItem}>
-          <LineChart />
-        </div>
+      {/* Rodapé com ícones de redes sociais */}
+      <div className={styles.footer}>
+        <span className={styles.socialIcon}>🐦</span>
+        <span className={styles.socialIcon}>📷</span>
+        <span className={styles.socialIcon}>👍</span>
+        <span className={styles.socialIcon}>❤️</span>
       </div>
-
-      <Contact />
     </main>
   );
 };

@@ -1,0 +1,42 @@
+.chart-container {
+  /* Sobrescrevendo propriedades do .graficoItem para o tema escuro */
+  background: #1A1F2B !important; /* Fundo escuro como na imagem */
+  border: none !important; /* Remove a borda vermelha */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important; /* Sombra mais suave */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.chart-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 260px;
+  font-size: 1rem;
+  color: #FFFFFF;
+}
+
+.chart-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 260px;
+  font-size: 1rem;
+  color: #FF5555;
+}
+
+/* Ajustes para responsividade */
+@media (max-width: 768px) {
+  .chart-title {
+    font-size: 1rem;
+  }
+}
