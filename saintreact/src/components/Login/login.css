@@ -17,6 +17,14 @@ body.login-page {
     height: 100vh;
 }
 
+
+.login-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
 .container {
     background-color: #fff;
     border-radius: 30px;
