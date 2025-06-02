@@ -4,18 +4,17 @@ import jwt
 import datetime
 from flask_cors import CORS 
 from dotenv import load_dotenv
-
+from dashboard import Dashboard
 from usuario import Usuario
 from produto import Produto
-from dashboard import Dashboard
 
-# Cria a aplicação Flask
+
 app = Flask(__name__)
 
 # Definir a chave secreta para codificar e decodificar o JWT
 app.config['SECRET_KEY'] = 'sua_chave_secreta'
 
-# Habilitar CORS para a aplicação inteira (pode ser configurado para aceitar origens específicas)
+# Habilitar CORS para a aplicação inteira
 CORS(app)
 
 load_dotenv()
@@ -145,14 +144,12 @@ def buscar_produto(codigo):
     try:
         produto = Produto.buscar_por_codigo(codigo)
         if produto:
-            return jsonify({
-                "produto": produto[0], "preco": produto[1], "marca": produto[2], "cor": produto[3],
-                "codigo": produto[4], "quantidade": produto[5], "condicao": produto[6], "peso": produto[7], "observacoes": produto[8]
-            }), 200
+            return jsonify(produto), 200 
         else:
             return jsonify({"error": "Produto não encontrado"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 #Rota para listar a quantidade de produtos    
 @app.route('/dashboard/quantidade_por_produto', methods=['GET'])
@@ -168,6 +165,39 @@ def rota_produtos_por_marca():
 @app.route('/dashboard/quantidade_por_condicao', methods=['GET'])
 def rota_quantidade_por_condicao():
     return Dashboard.quantidade_por_condicao()
+
+@app.route('/dashboard/quantidade_total', methods=['GET'])
+def quantidade_total():
+    try:
+        total = Dashboard.quantidade_total_itens()
+        return jsonify({"quantidade_total": total}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+
+@app.route('/dashboard/soma_precos', methods=['GET'])
+def soma_precos():
+    try:
+        total = Dashboard.soma_total_precos()
+        return jsonify({"soma_total_precos": total}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/dashboard/percentual_zerados', methods=['GET'])
+def percentual_zerados():
+    try:
+        percentual = Dashboard.percentual_produtos_zerados()
+        return jsonify({"percentual_zerados": percentual}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/dashboard/percentual_preco_por_marca', methods=['GET'])
+def percentual_preco_por_marca():
+    try:
+        dados = Dashboard.percentual_preco_por_marca()
+        return jsonify(dados), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 app.run(
     host='0.0.0.0',
     port=5050,

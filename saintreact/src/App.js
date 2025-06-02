@@ -1,7 +1,6 @@
 import RoutesApp from "./routes";
 
-import '../src/components/Global/Elements/index.css';
-import '../src/components/Global/Variables/index.css';
+import '../src/index.css';
 
 
 function App() {
