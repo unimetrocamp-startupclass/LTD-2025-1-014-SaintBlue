@@ -145,14 +145,12 @@ def buscar_produto(codigo):
     try:
         produto = Produto.buscar_por_codigo(codigo)
         if produto:
-            return jsonify({
-                "produto": produto[0], "preco": produto[1], "marca": produto[2], "cor": produto[3],
-                "codigo": produto[4], "quantidade": produto[5], "condicao": produto[6], "peso": produto[7], "observacoes": produto[8]
-            }), 200
+            return jsonify(produto), 200 
         else:
             return jsonify({"error": "Produto não encontrado"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 #Rota para listar a quantidade de produtos    
 @app.route('/dashboard/quantidade_por_produto', methods=['GET'])

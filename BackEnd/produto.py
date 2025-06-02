@@ -67,7 +67,7 @@ class Produto:
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute("""
-            SELECT codigo, condicao, cor, marca, peso,  preco,quantidade, marca, cor, quantidade,produto, observacoes
+            SELECT codigo, condicao, cor, marca, peso, preco, quantidade, produto, observacoes
             FROM estoque WHERE codigo = %s
         """, (codigo,))
         row = cursor.fetchone()
