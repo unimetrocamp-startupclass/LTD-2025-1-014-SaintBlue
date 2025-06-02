@@ -74,7 +74,7 @@ class Dashboard:
         total = cursor.fetchone()[0]
         cursor.close()
         conn.close()
-        return total or 0  # Evita None
+        return total or 0  
     @staticmethod
     def soma_total_precos():
         conn = get_db_connection()
@@ -90,7 +90,7 @@ class Dashboard:
         cursor = conn.cursor()
 
         cursor.execute("SELECT COUNT(*) FROM estoque")
-        total = cursor.fetchone()[0] or 1  # Evita divisão por zero
+        total = cursor.fetchone()[0] or 1 
 
         cursor.execute("SELECT COUNT(*) FROM estoque WHERE quantidade = 0")
         zerados = cursor.fetchone()[0]
@@ -99,30 +99,28 @@ class Dashboard:
         conn.close()
 
         percentual = (zerados / total) * 100
-        return round(percentual, 2)  # Duas casas decimais
+        return round(percentual, 2)  
     @staticmethod
     def percentual_preco_por_marca():
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Soma total dos preços
         cursor.execute("SELECT SUM(preco) FROM estoque")
-        total = cursor.fetchone()[0] or 1  # evita divisão por zero
+        total = cursor.fetchone()[0] or 1  
 
-        # Soma dos preços por marca
         cursor.execute("""
             SELECT TRIM(LOWER(marca)) AS marca, SUM(preco)
             FROM estoque
             GROUP BY marca
+            ORDER BY SUM(preco) DESC
         """)
         dados = cursor.fetchall()
         cursor.close()
         conn.close()
 
-        # Converte para porcentagem
         resultado = [
-            {"marca": marca.capitalize(), "percentual": round((soma / total) * 100, 2)}
-            for marca, soma in dados
+        {"marca": marca.capitalize() or "Sem Marca", "valor_total": round(soma, 2)}
+        for marca, soma in dados
         ]
-        return resultado
+        return jsonify(resultado)
 

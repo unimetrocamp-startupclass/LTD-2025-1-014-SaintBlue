@@ -38,11 +38,12 @@ const PieChart = () => {
         const result = await response.json();
 
         // Transformar os dados para o formato do gráfico e atribuir cores dinamicamente
-        const chartData = result.map((item, index) => ({
-          name: item.marca || "Sem Marca",
-          value: item.valor_total,
-          color: COLORS[index % COLORS.length], // Atribui cores de forma cíclica
-        }));
+      const chartData = result.map((item, index) => ({
+      name: item.marca || "Sem Marca",
+      value: item.valor_total, // agora está certo com esse backend
+      color: COLORS[index % COLORS.length],
+      }));
+
 
         setData(chartData);
         setError(null);

@@ -194,10 +194,10 @@ def percentual_zerados():
 @app.route('/dashboard/percentual_preco_por_marca', methods=['GET'])
 def percentual_preco_por_marca():
     try:
-        dados = Dashboard.percentual_preco_por_marca()
-        return jsonify(dados), 200
+        return Dashboard.percentual_preco_por_marca()
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 app.run(
     host='0.0.0.0',
     port=5050,

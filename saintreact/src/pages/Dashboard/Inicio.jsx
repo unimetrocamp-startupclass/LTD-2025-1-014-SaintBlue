@@ -23,7 +23,7 @@ const Inicio = () => {
         );
         const totalData = await totalResponse.json();
         console.log("Total Quantidade(daniel):", totalData);
-        setTotalQuantidade(totalData.total_quantidade || 0);
+        setTotalQuantidade(totalData.quantidade_total|| 0);
 
         const valorResponse = await fetch(
           "http://localhost:5050/dashboard/soma_precos"
@@ -31,14 +31,14 @@ const Inicio = () => {
         const valorData = await valorResponse.json();
         console.log(valorResponse)
         console.log("Valor Total(daniel):", valorData);
-        setValorTotal(valorData.valor_total || 0);
+        setValorTotal(valorData.soma_total_precos || 0);
 
-        const rupturaResponse = await fetch(
-          "http://localhost:5050/dashboard/percentual_zerados"
-        );
+        const rupturaResponse = await fetch("http://localhost:5050/dashboard/percentual_zerados");
         const rupturaData = await rupturaResponse.json();
         console.log("Percentual de produtos vazios(daniel):", rupturaData);
-        setRuptura(rupturaData.ruptura || "0%");
+
+        setRuptura((rupturaData.percentual_zerados || 0) + "%");
+
 
         const produtosResponse = await fetch(
           "http://localhost:5050/estoque/listar"
