@@ -3,8 +3,11 @@
   import React, { useState, useEffect } from "react";
   import { Link, NavLink } from "react-router-dom";
   import Switch from "./Switch";
+  import styles from '../Sidebar/Sidebar.module.css';
+  import Popup from "../../components/Popup/Popup";
 
   function Sidebar() {
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     // Inicializa o estado com o valor do localStorage, convertendo a string "true"/"false" para booleano
     const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -160,6 +163,16 @@
                 <span>Sair</span>
               </Link>
             </div>
+            <div className={styles.perfil}>
+                    <ul>
+                         <li  onClick={() => setIsPopUpOpen(true)}>
+                            <i className="bi bi-person-circle"></i>
+                            <span className={styles.btnPerfil}>Perfil</span>
+                        </li>
+                    </ul>
+            </div>
+              {/* Pop-up */}
+            <Popup isOpen={isPopUpOpen} onClose={() => setIsPopUpOpen(false)} />          
           </div>
         </nav>
       </div>
