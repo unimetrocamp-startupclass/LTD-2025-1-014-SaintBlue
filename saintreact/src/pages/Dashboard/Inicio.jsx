@@ -19,28 +19,29 @@ const Inicio = () => {
       setLoading(true);
       try {
         const totalResponse = await fetch(
-          "http://localhost:5000/dashboard/total_quantidade_estoque"
+          "http://localhost:5050/dashboard/quantidade_total"
         );
         const totalData = await totalResponse.json();
-        console.log("Total Quantidade:", totalData);
+        console.log("Total Quantidade(daniel):", totalData);
         setTotalQuantidade(totalData.total_quantidade || 0);
 
         const valorResponse = await fetch(
-          "http://localhost:5000/dashboard/valor_total_estoque"
+          "http://localhost:5050/dashboard/soma_precos"
         );
         const valorData = await valorResponse.json();
-        console.log("Valor Total:", valorData);
+        console.log(valorResponse)
+        console.log("Valor Total(daniel):", valorData);
         setValorTotal(valorData.valor_total || 0);
 
         const rupturaResponse = await fetch(
-          "http://localhost:5000/dashboard/ruptura_estoque"
+          "http://localhost:5050/dashboard/percentual_zerados"
         );
         const rupturaData = await rupturaResponse.json();
-        console.log("Ruptura:", rupturaData);
+        console.log("Percentual de produtos vazios(daniel):", rupturaData);
         setRuptura(rupturaData.ruptura || "0%");
 
         const produtosResponse = await fetch(
-          "http://localhost:5000/estoque/listar"
+          "http://localhost:5050/estoque/listar"
         );
         const produtosData = await produtosResponse.json();
         console.log("Produtos:", produtosData);
@@ -284,19 +285,19 @@ const Inicio = () => {
 
           {/* Gráfico de barras - Faturamento ao longo do tempo */}
           <div className="rounded-lg p-4 border border-gray-700 dark:bg-[var(--color-background-dark)] shadow-md dark:shadow-none">
-            <BarChart dataUrl="http://localhost:5000/dashboard/quantidade_por_produto" />
+            <BarChart dataUrl="http://localhost:5050/dashboard/quantidade_por_produto" />
           </div>
 
           {/* Gráficos inferiores */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Gráfico de pizza - Valor em estoque por área */}
             <div className="rounded-lg p-4 border border-gray-700 dark:bg-[var(--color-background-dark)] shadow-md dark:shadow-none">
-              <PieChart dataUrl="http://localhost:5000/dashboard/produtos_por_marca" />
+              <PieChart dataUrl="http://localhost:5050/dashboard/quantidade_por_marca" />
             </div>
 
             {/* Gráfico de barras horizontal - Valor em estoque por fornecedor */}
             <div className="rounded-lg p-4 border border-gray-700 dark:bg-[var(--color-background-dark)] shadow-md dark:shadow-none">
-              <ProductQuantityChart dataUrl="http://localhost:5000/dashboard/quantidade_por_condicao" />
+              <ProductQuantityChart dataUrl="http://localhost:5050/dashboard/quantidade_por_condicao" />
             </div>
           </div>
         </div>

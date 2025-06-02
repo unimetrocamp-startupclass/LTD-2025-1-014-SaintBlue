@@ -28,7 +28,7 @@ const PieChart = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          "http://localhost:5000/dashboard/valor_estoque_por_marca"
+          "http://localhost:5050/dashboard/percentual_preco_por_marca"
         );
 
         if (!response.ok) {
