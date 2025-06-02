@@ -100,6 +100,7 @@ function Login() {
                 const data = await response.json();
                 console.log("Token:", data.token); // Você pode salvar o token no localStorage ou em outro lugar
                 localStorage.setItem("token", data.token);
+                localStorage.setItem("userEmail", email); 
                 navigate("/inicio"); // Redireciona diretamente para a página inicial
             } else {
                 const errorData = await response.json();

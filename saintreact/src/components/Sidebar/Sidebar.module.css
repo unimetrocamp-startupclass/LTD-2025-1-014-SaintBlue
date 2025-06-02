@@ -312,7 +312,26 @@
 .openPopupBtn:hover {
     transform: scale(1.1);
 }
-
+.perfil{
+    margin-bottom: 17px;
+    margin-left: 17px;
+    height: 70px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+.perfil :hover{
+    padding: 0 15px;
+    width: 98%;
+    align-items: center;
+    border-radius: 12px;
+    background-color: var(--color-barra-lateral);
+    color: var(--color-texto-menu);
+    background: var(--color-menu-houver);
+    color: var(--color-menu-houver-texto);
+}
 @media (max-width: 600px){
 
     .menu{

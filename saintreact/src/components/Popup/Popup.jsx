@@ -1,6 +1,6 @@
 import React from 'react';
 import { CSSTransition } from "react-transition-group";
-
+import  { useEffect, useState } from "react";
 import "./modalTransitions.css";
 import styles from './Popup.module.css';
 
@@ -8,60 +8,52 @@ function Popup({
     isOpen,
     onClose,
     onSubmit,
-    photo,
-    setPhoto,
-    nome,
-    setNome,
-    telefone,
-    setTelefone,
-    email,
-    setEmail,
-    endereco,
-    setEndereco,
 }) {
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setPhoto(file); // Atualiza a foto de perfil no estado
-    };
+    const [nome, setNome] = useState("");;
+    const [telefone, setTelefone] = useState("");
+    const [sobrenome, setSobrenome] = useState("");
+    const email = localStorage.getItem("userEmail");
+    // const handleFileChange = (event) => {
+    //     const file = event.target.files[0];
+    //     setPhoto(file); // Atualiza a foto de perfil no estado
+    // };
 
-    const handleSubmit = async () => {
-        try {
-            // Criação do objeto FormData para enviar os dados incluindo a foto
-            const formData = new FormData();
-            if (photo) formData.append("photo", photo);
-            formData.append("nome", nome);
-            formData.append("telefone", telefone);
-            formData.append("email", email);
-            formData.append("endereco", endereco);
+    // const handleSubmit = async () => {
+    //     try {
+    //         // Criação do objeto FormData para enviar os dados incluindo a foto
+    //         const formData = new FormData();
+    //         if (photo) formData.append("photo", photo);
+    //         formData.append("nome", nome);
+    //         formData.append("telefone", telefone);
+    //         formData.append("email", email);
+    //         formData.append("sobrenome", endereco);
 
-            const response = await fetch("http://seu-backend.com/usuario", {
-                method: "PUT", // Atualiza os dados
-                body: formData, // Envia o FormData
-            });
+    //         const response = await fetch("http://seu-backend.com/usuario", {
+    //             method: "PUT", // Atualiza os dados
+    //             body: formData, // Envia o FormData
+    //         });
 
-            if (!response.ok) throw new Error("Erro ao atualizar os dados do usuário");
+    //         if (!response.ok) throw new Error("Erro ao atualizar os dados do usuário");
 
-            alert("Perfil atualizado com sucesso!");
-            onSubmit(); // Fecha o popup ou executa ações adicionais
-        } catch (error) {
-            console.error("Erro ao atualizar o perfil:", error);
-            alert("Houve um erro ao atualizar o perfil.");
-        }
-    };
+    //         alert("Perfil atualizado com sucesso!");
+    //         onSubmit(); // Fecha o popup ou executa ações adicionais
+    //     } catch (error) {
+    //         console.error("Erro ao atualizar o perfil:", error);
+    //         alert("Houve um erro ao atualizar o perfil.");
+    //     }
+    // };
 
     // Requisição para buscar os dados do usuário ao abrir o popup
     const fetchUserDetails = async () => {
         try {
-            const response = await fetch("http://127.0.0.1:5050/user/joaooo@email.com");
+            const response = await fetch(`http://127.0.0.1:5050/user/${email}`);
+            console.log(email)
             if (!response.ok) throw new Error("Erro ao buscar os dados do usuário");
-            
+
             const data = await response.json();
-            console.log(data)
             setNome(data.nome || "");
-            setTelefone(data.telefone || "");
-            setEmail(data.email || "");
-            setEndereco(data.endereco || "");
-            setPhoto(null); 
+            setTelefone(data.numero || "");
+            setSobrenome(data.sobrenome || ""); 
         } catch (error) {
             console.error("Erro ao buscar os dados do usuário:", error);
         }
@@ -97,13 +89,13 @@ function Popup({
                             <label className={styles.photoUpload} htmlFor="product-image">
                                 <i className="bi bi-person-bounding-box"></i> Foto de Perfil
                             </label>
-                            <input className={styles.popupInputFt}
+                            {/* <input className={styles.popupInputFt}
                                 type="file"
                                 id="product-image"
                                 name="product-image"
                                 accept="image/*"
                                 onChange={handleFileChange}
-                            />
+                            /> */}
 
                             <div className={styles.informacoes}>
                                 <h2 className={styles.infoH2}>Nome:</h2>
@@ -114,6 +106,15 @@ function Popup({
                                     onChange={(e) => setNome(e.target.value)}
                                 />
 
+                                
+                                <h2 className={styles.infoH2}>Sobrenome:</h2>
+                                <input className={styles.popupInput}
+                                    type="text"
+                                    placeholder="End."
+                                    value={sobrenome}
+                                    onChange={(e) => setSobrenome(e.target.value)}
+                                />
+
                                 <h2 className={styles.infoH2}>Tel.:</h2>
                                 <input className={styles.popupInput}
                                     type="text"
@@ -122,28 +123,14 @@ function Popup({
                                     onChange={(e) => setTelefone(e.target.value)}
                                 />
 
-                                <h2 className={styles.infoH2}>E-mail:</h2>
-                                <input className={styles.popupInput}
-                                    type="email"
-                                    placeholder="E-mail"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
 
-                                <h2 className={styles.infoH2}>Endereço:</h2>
-                                <input className={styles.popupInput}
-                                    type="text"
-                                    placeholder="End."
-                                    value={endereco}
-                                    onChange={(e) => setEndereco(e.target.value)}
-                                />
                             </div>
 
-                            <div className={styles.btn}>
+                            {/* <div className={styles.btn}>
                                 <button className={styles.btnTxt} onClick={handleSubmit}>
                                     Alterar Perfil
                                 </button>
-                            </div>
+                            </div> */}
                         </div> {/* Fechamento da div form */}
                     </div> {/* Fechamento da div perfil */}
                 </div> {/* Fechamento da div popup-content */}

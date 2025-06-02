@@ -175,7 +175,15 @@ function Sidebar() {
                         </li>
                     </ul>
                 </div>
-
+                <div className={styles.perfil}>
+                    <ul>
+                         <li  onClick={() => setIsPopUpOpen(true)}>
+                            <i className="bi bi-person-circle"></i>
+                            <span className={styles.btnPerfil}>Perfil</span>
+                        </li>
+                    </ul>
+                </div>
+               
                 
             </div>
 
