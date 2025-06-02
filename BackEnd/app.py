@@ -9,13 +9,12 @@ from usuario import Usuario
 from produto import Produto
 
 
-# Cria a aplicação Flask
 app = Flask(__name__)
 
 # Definir a chave secreta para codificar e decodificar o JWT
 app.config['SECRET_KEY'] = 'sua_chave_secreta'
 
-# Habilitar CORS para a aplicação inteira (pode ser configurado para aceitar origens específicas)
+# Habilitar CORS para a aplicação inteira
 CORS(app)
 
 load_dotenv()

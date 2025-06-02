@@ -1,8 +1,80 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    list-style: none;
-    border: none;
-    text-decoration: none;
+/* saintreact/src/components/Global/Variables/index.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  border: none;
+  text-decoration: none;
+}
+
+:root {
+  /* Cores para modo claro */
+  --color-primary: #2d979b; /* Teal claro */
+  --color-primary-dark: #1e6b6e; /* Teal mais escuro para hover */
+  --color-primary-darker: #e5e7eb; /* Cinza claro para sidebar no modo claro */
+  --color-background-light: #ffffff; /* Fundo claro */
+  --color-background-dark: #1a202c; /* Fundo escuro */
+  --color-text-light: #1a1a1a; /* Texto escuro no modo claro */
+  --color-text-dark: #e2e8f0; /* Texto claro no modo escuro */
+  --color-gray-light: #f5f7fa; /* Cinza claro */
+  --color-gray-dark: #2c2d31; /* Cinza escuro */
+  --color-line: #d1d5db; /* Linhas no modo claro */
+  --color-line-dark: #4b5563; /* Linhas no modo escuro */
+  /* Variáveis para ícones */
+  --icon-color-primary: #ffffff; /* Cor padrão do ícone (branco) */
+  --icon-color-secondary: #42a5f5; /* Cor secundária (azul claro para hover) */
+}
+
+.dark-mode {
+  /* Cores para modo escuro */
+  --color-primary: #155e61;
+  --color-primary-dark: #2d979b;
+  --color-primary-darker: #155e61; /* Teal escuro para sidebar no modo escuro */
+  --color-background-light: #1a202c;
+  --color-background-dark: #2c2d31;
+  --color-text-light: #e2e8f0;
+  --color-text-dark: #1a1a1a;
+  --color-gray-light: #374151;
+  --color-gray-dark: #4b5563;
+  --color-line: #4b5563;
+  --color-line-dark: #d1d5db;
+  /* Ajuste de ícones no modo escuro */
+  --icon-color-primary: #e2e8f0; /* Cor do ícone no modo escuro */
+  --icon-color-secondary: #60a5fa; /* Cor secundária no modo escuro */
+}
+
+/* Estilo para ícones SVG */
+.custom-icon {
+  transition: stroke 0.3s ease;
+}
+
+.custom-icon:hover {
+  stroke: var(--icon-color-secondary);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  @apply bg-[var(--color-background-light)] text-[var(--color-text-light)];
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.dark-mode {
+  @apply bg-[var(--color-background-dark)] text-[var(--color-text-dark)];
+}
+
+/* Garante que elementos fixos não deixem espaço */
+body > * {
+  margin-top: 0 !important;
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Estoque.module.css';
 import api from '../../services/api';
-import Cubo from "../Inicio/Cubo";
 import Swal from 'sweetalert2'; // Importando SweetAlert2
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEdit, FaTrashAlt } from 'react-icons/fa';  // Importando os ícones
@@ -97,7 +96,6 @@ const Estoque = () => {
   return (
     <div className={styles.tableContainer}>
       <div className={styles.Title}>
-        <Cubo />
         <h1 className={styles.pageTitle}>Gestão de Estoque</h1>
       </div>
       <div className={styles.actionsBar}>
