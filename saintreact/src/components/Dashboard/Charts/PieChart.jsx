@@ -9,8 +9,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import axios from "axios";
 import styles from "../../../pages/Inicio/Inicio.module.css";
+import api from "../../../services/api";
 
 const COLORS = ["#4A90E2", "#50C878", "#FFD60A", "#FF6F61"];
 
@@ -22,8 +22,8 @@ const PieChartVendas = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/dashboard/produtos_por_marca"
+        const response = await api.get(
+          "dashboard/produtos_por_marca"
         );
         const formattedData = response.data.map((item) => ({
           name: item.marca,

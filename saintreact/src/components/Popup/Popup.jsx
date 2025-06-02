@@ -52,10 +52,11 @@ function Popup({
     // Requisição para buscar os dados do usuário ao abrir o popup
     const fetchUserDetails = async () => {
         try {
-            const response = await fetch("http://seu-backend.com/usuario");
+            const response = await fetch("http://127.0.0.1:5050/user/joaooo@email.com");
             if (!response.ok) throw new Error("Erro ao buscar os dados do usuário");
-
+            
             const data = await response.json();
+            console.log(data)
             setNome(data.nome || "");
             setTelefone(data.telefone || "");
             setEmail(data.email || "");

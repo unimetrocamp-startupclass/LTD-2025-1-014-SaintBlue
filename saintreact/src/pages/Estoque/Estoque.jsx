@@ -13,7 +13,7 @@ const Estoque = () => {
   // Função para buscar produtos da API
   const getProdutos = async () => {
     try {
-      const response = await api.get('listar');
+      const response = await api.get('estoque/listar');
       const data = response.data;
       setProdutos(data);
     } catch (error) {
@@ -48,7 +48,7 @@ const Estoque = () => {
           );
 
           // Chama a API para deletar
-          await api.delete(`deletar/${codigo}`);
+          await api.delete(`estoque/deletar/${codigo}`);
 
           // Exibe alerta de sucesso
           Swal.fire({

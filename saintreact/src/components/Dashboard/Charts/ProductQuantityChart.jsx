@@ -10,8 +10,8 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
-import axios from "axios";
 import styles from "../../../pages/Inicio/Inicio.module.css";
+import api from "../../../services/api";
 
 const ProductQuantityChart = () => {
   const [data, setData] = useState([]);
@@ -21,8 +21,8 @@ const ProductQuantityChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/dashboard/quantidade_por_produto"
+        const response = await api.get(
+          "dashboard/quantidade_por_produto"
         );
         // Pega os top 5 produtos com maior quantidade
         const sortedData = response.data

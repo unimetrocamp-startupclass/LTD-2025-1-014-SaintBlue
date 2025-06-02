@@ -10,8 +10,8 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
-import axios from "axios";
 import styles from "../../../pages/Inicio/Inicio.module.css";
+import api from "../../../services/api";
 
 const BarChartComponent = () => {
   const [data, setData] = useState([]);
@@ -21,8 +21,8 @@ const BarChartComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/dashboard/quantidade_por_condicao"
+        const response = await api.get(
+          "dashboard/quantidade_por_condicao"
         );
         const formattedData = response.data.map((item) => ({
           name: item.condicao.charAt(0).toUpperCase() + item.condicao.slice(1),

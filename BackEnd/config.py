@@ -1,7 +1,9 @@
+import os
+
 DATABASE = {
     'dbname': 'saintblue',
     'user': 'postgres',
-    'password': 'saintblue123',
+    'password': os.environ.get('DB_PASSWORD', 'senha_padrao'),
     'host': 'localhost',
     'port': '5432'
 }

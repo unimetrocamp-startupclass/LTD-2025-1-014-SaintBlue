@@ -10,7 +10,7 @@ export function CreateProduto() {
     async function handleCreateProduct(data) {
         try {
             // Envia os dados para a API
-            const response = await api.post('cadastrar', data);
+            const response = await api.post('estoque/cadastrar', data);
 
             // Debug da resposta da API
             console.log('Resposta da API:', response);
