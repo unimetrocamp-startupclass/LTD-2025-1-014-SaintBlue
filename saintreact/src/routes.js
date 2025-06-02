@@ -40,8 +40,8 @@ function RoutesApp() {
   const pageVariants = {
     initial: {
       opacity: 0,
-      x: 20, // Leve deslocamento da direita
-      scale: 0.98, // Leve redução de escala
+      x: 20,
+      scale: 0.98,
     },
     animate: {
       opacity: 1,
@@ -50,18 +50,18 @@ function RoutesApp() {
     },
     exit: {
       opacity: 0,
-      x: -20, // Leve deslocamento para a esquerda
+      x: -20,
       scale: 0.98,
     },
   };
 
   const pageTransition = {
-    duration: 0.4, // Duração suave de 0.4 segundos
-    ease: "easeInOut", // Curva de easing suave
+    duration: 0.4,
+    ease: "easeInOut",
   };
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       {/* Renderiza a Sidebar fora da transição */}
       {isDashboardOrEstoque && <Sidebar />}
 
@@ -74,14 +74,14 @@ function RoutesApp() {
           animate="animate"
           exit="exit"
           transition={pageTransition}
-          className="page-container"
+          className="flex-1 page-container"
+          style={{ overflowX: "hidden" }}
         >
           {isDashboardOrEstoque ? (
-            <div
-              className="flex flex-col h-screen"
-              style={{ margin: 0, padding: 0 }}
-            >
-              <main className="flex-1 px-4 sm:px-6 lg:px-8 overflow-auto md:pt-0 pt-16">
+            <div className="flex flex-col min-h-100svh">
+              <main
+                className="flex-1 overflow-y-auto overflow-x-hidden"
+              >
                 <Routes location={location}>
                   <Route path="/dashboard" element={<Inicio />} />
                   <Route
@@ -113,7 +113,7 @@ function RoutesApp() {
           )}
         </motion.div>
       </AnimatePresence>
-    </>
+    </div>
   );
 }
 

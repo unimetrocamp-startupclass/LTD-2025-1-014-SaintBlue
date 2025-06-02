@@ -123,4 +123,29 @@ class Dashboard:
         for marca, soma in dados
         ]
         return jsonify(resultado)
+    @staticmethod
+    def valor_em_estoque_por_produto():
+        try:
+            conn = get_db_connection()
+            if conn is None:
+                return jsonify({"error": "Erro ao conectar ao banco de dados"}), 500
+
+            cur = conn.cursor()
+            cur.execute("""
+                SELECT TRIM(LOWER(produto)) AS nome_produto, SUM(preco * quantidade) AS valor_total
+                FROM estoque
+                GROUP BY nome_produto
+                ORDER BY valor_total DESC
+            """)
+            dados = cur.fetchall()
+            cur.close()
+            conn.close()
+
+            resultado = [
+                {"name": nome.capitalize(), "value": float(valor_total) or 0.0}
+                for nome, valor_total in dados
+            ]
+            return jsonify(resultado), 200
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
 

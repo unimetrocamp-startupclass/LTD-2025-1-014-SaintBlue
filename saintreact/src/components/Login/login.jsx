@@ -193,7 +193,7 @@ function Login() {
               </div>
               <h1>Bem-vindo(a)</h1>
               <p>Já possui uma conta?</p>
-              <button className="hidden" onClick={handleLoginClick}>
+              <button onClick={handleLoginClick}>
                 Fazer login
               </button>
               <Link to="/">
@@ -206,7 +206,7 @@ function Login() {
               </div>
               <h1>Bem-vindo(a)</h1>
               <p>Não possui uma conta?</p>
-              <button className="hidden" onClick={handleRegisterClick}>
+              <button onClick={handleRegisterClick}>
                 Criar conta
               </button>
               <Link to="/">

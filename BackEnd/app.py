@@ -198,6 +198,13 @@ def percentual_preco_por_marca():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/dashboard/valor_em_estoque_por_produto', methods=['GET'])
+def valor_em_estoque_por_produto():
+    try:
+        return Dashboard.valor_em_estoque_por_produto()
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 app.run(
     host='0.0.0.0',
     port=5050,
