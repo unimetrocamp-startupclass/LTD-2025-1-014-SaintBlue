@@ -4,10 +4,10 @@ import jwt
 import datetime
 from flask_cors import CORS 
 from dotenv import load_dotenv
-
+from dashboard import Dashboard
 from usuario import Usuario
 from produto import Produto
-from dashboard import Dashboard
+
 
 # Cria a aplicação Flask
 app = Flask(__name__)
@@ -166,6 +166,39 @@ def rota_produtos_por_marca():
 @app.route('/dashboard/quantidade_por_condicao', methods=['GET'])
 def rota_quantidade_por_condicao():
     return Dashboard.quantidade_por_condicao()
+
+@app.route('/dashboard/quantidade_total', methods=['GET'])
+def quantidade_total():
+    try:
+        total = Dashboard.quantidade_total_itens()
+        return jsonify({"quantidade_total": total}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+
+@app.route('/dashboard/soma_precos', methods=['GET'])
+def soma_precos():
+    try:
+        total = Dashboard.soma_total_precos()
+        return jsonify({"soma_total_precos": total}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/dashboard/percentual_zerados', methods=['GET'])
+def percentual_zerados():
+    try:
+        percentual = Dashboard.percentual_produtos_zerados()
+        return jsonify({"percentual_zerados": percentual}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/dashboard/percentual_preco_por_marca', methods=['GET'])
+def percentual_preco_por_marca():
+    try:
+        dados = Dashboard.percentual_preco_por_marca()
+        return jsonify(dados), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 app.run(
     host='0.0.0.0',
     port=5050,
