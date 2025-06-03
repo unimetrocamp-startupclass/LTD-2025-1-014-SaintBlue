@@ -148,4 +148,3 @@ class Dashboard:
             return jsonify(resultado), 200
         except Exception as e:
             return jsonify({"error": str(e)}), 500
-

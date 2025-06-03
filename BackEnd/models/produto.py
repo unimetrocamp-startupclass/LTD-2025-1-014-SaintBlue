@@ -76,4 +76,3 @@ class Produto:
         cursor.close()
         conn.close()
         return produto
-
