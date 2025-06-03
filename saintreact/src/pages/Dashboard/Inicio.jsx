@@ -1,4 +1,3 @@
-// dashboard/inicio.jsx
 import React, { useEffect, useState } from "react";
 import BarChart from "../../components/Dashboard/Charts/BarChart";
 import PieChart from "../../components/Dashboard/Charts/PieChart";
@@ -12,35 +11,35 @@ const Inicio = () => {
   const [giro, setGiro] = useState(0);
   const [loading, setLoading] = useState(true);
   const [filtroCategoria, setFiltroCategoria] = useState("Todos");
-  const [filtroClasse, setFiltroClasse] = useState([]);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       setLoading(true);
       try {
         const totalResponse = await fetch(
-          "http://localhost:5000/dashboard/total_quantidade_estoque"
+          "http://localhost:5050/dashboard/quantidade_total"
         );
         const totalData = await totalResponse.json();
-        console.log("Total Quantidade:", totalData);
-        setTotalQuantidade(totalData.total_quantidade || 0);
+        console.log("Total Quantidade(daniel):", totalData);
+        setTotalQuantidade(totalData.quantidade_total || 0);
 
         const valorResponse = await fetch(
-          "http://localhost:5000/dashboard/valor_total_estoque"
+          "http://localhost:5050/dashboard/soma_precos"
         );
         const valorData = await valorResponse.json();
-        console.log("Valor Total:", valorData);
-        setValorTotal(valorData.valor_total || 0);
+        console.log(valorResponse);
+        console.log("Valor Total(daniel):", valorData);
+        setValorTotal(valorData.soma_total_precos || 0);
 
         const rupturaResponse = await fetch(
-          "http://localhost:5000/dashboard/ruptura_estoque"
+          "http://localhost:5050/dashboard/percentual_zerados"
         );
         const rupturaData = await rupturaResponse.json();
-        console.log("Ruptura:", rupturaData);
-        setRuptura(rupturaData.ruptura || "0%");
+        console.log("Percentual de produtos vazios(daniel):", rupturaData);
+        setRuptura((rupturaData.percentual_zerados || 0) + "%");
 
         const produtosResponse = await fetch(
-          "http://localhost:5000/estoque/listar"
+          "http://localhost:5050/estoque/listar"
         );
         const produtosData = await produtosResponse.json();
         console.log("Produtos:", produtosData);
@@ -60,43 +59,6 @@ const Inicio = () => {
     fetchDashboardData();
   }, []);
 
-  const calcularClassificacaoABC = (produtos) => {
-    if (!produtos || produtos.length === 0) return [];
-
-    const produtosComValor = produtos.map((produto) => ({
-      ...produto,
-      valorTotal: produto.preco * produto.quantidade,
-    }));
-
-    const valorTotalGeral = produtosComValor.reduce(
-      (sum, p) => sum + p.valorTotal,
-      0
-    );
-
-    produtosComValor.sort((a, b) => b.valorTotal - a.valorTotal);
-
-    let valorAcumulado = 0;
-    const produtosClassificados = produtosComValor.map((produto, index) => {
-      valorAcumulado += produto.valorTotal;
-      const percentualAcumulado = (valorAcumulado / valorTotalGeral) * 100;
-
-      let classe;
-      if (percentualAcumulado <= 80) {
-        classe = "A";
-      } else if (percentualAcumulado <= 95) {
-        classe = "B";
-      } else {
-        classe = "C";
-      }
-
-      return { ...produto, classe };
-    });
-
-    return produtosClassificados;
-  };
-
-  const produtosClassificados = calcularClassificacaoABC(produtos);
-
   const formatCurrency = (value) => {
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -106,45 +68,22 @@ const Inicio = () => {
     }).format(value);
   };
 
-  const toggleClasseFilter = (classe) => {
-    setFiltroClasse((prev) =>
-      prev.includes(classe)
-        ? prev.filter((c) => c !== classe)
-        : [...prev, classe]
-    );
-  };
-
-  const getClasseColor = (classe) => {
-    switch (classe) {
-      case "A":
-        return "bg-green-500";
-      case "B":
-        return "bg-yellow-500";
-      case "C":
-        return "bg-red-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
-
-  const filteredProdutos = produtosClassificados.filter((produto) => {
+  const filteredProdutos = produtos.filter((produto) => {
     const categoriaMatch =
       filtroCategoria === "Todos" || produto.produto === filtroCategoria;
-    const classeMatch =
-      filtroClasse.length === 0 || filtroClasse.includes(produto.classe);
-    return categoriaMatch && classeMatch;
+    return categoriaMatch;
   });
 
   return (
-    <div className="flex flex-col w-full text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 p-4">
+    <div className="dashboard-container">
+      <div className="dashboard-grid">
         {/* Coluna da esquerda - Ilustração e título */}
-        <div className="lg:col-span-2 hidden lg:flex flex-col items-center justify-start pt-8">
-          <div className="mb-4 w-full h-56 flex items-center justify-center">
+        <div className="dashboard-sidebar">
+          <div className="sidebar-image-container">
             <img
               src="/entregador-sem-fundoo.png"
               alt="Entregador com caixas"
-              className="max-h-full object-contain"
+              className="sidebar-image"
               onError={(e) => {
                 console.error("Erro ao carregar a imagem:", e.target.src);
                 e.target.onerror = null;
@@ -153,21 +92,17 @@ const Inicio = () => {
               }}
             />
           </div>
-          <h1 className="text-2xl font-bold tracking-wider text-center mt-4">
-            D A S H B O A R D
-          </h1>
-          <h2 className="text-xl font-medium text-center mt-2">
-            Controle de Estoque
-          </h2>
+          <h1 className="sidebar-title">D A S H B O A R D</h1>
+          <h2 className="sidebar-subtitle">Controle de Estoque</h2>
         </div>
 
         {/* Coluna central - Cards e gráficos principais */}
-        <div className="lg:col-span-7 flex flex-col gap-4">
+        <div className="dashboard-main">
           {/* Cards de métricas */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div className="metrics-cards">
             {/* Card Total em Estoque */}
-            <div className="rounded-lg p-4 flex items-center border border-gray-700 dark:bg-[var(--color-background-dark)] dark:text-[var(--color-text-dark)] shadow-md dark:shadow-none">
-              <div className="bg-blue-500 rounded-lg p-3 mr-3">
+            <div className="metric-card">
+              <div className="metric-icon bg-blue-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 custom-icon"
@@ -184,10 +119,8 @@ const Inicio = () => {
                 </svg>
               </div>
               <div>
-                <h2 className="text-sm font-medium text-gray-400 dark:text-gray-500">
-                  Total em Estoque
-                </h2>
-                <p className="text-xl font-bold text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
+                <h2 className="metric-label">Total em Estoque</h2>
+                <p className="metric-value">
                   {loading
                     ? "Carregando..."
                     : `${totalQuantidade.toLocaleString()} unidades`}
@@ -196,8 +129,8 @@ const Inicio = () => {
             </div>
 
             {/* Card Valor em Estoque */}
-            <div className="rounded-lg p-4 flex items-center border border-gray-700 dark:bg-[var(--color-background-dark)] dark:text-[var(--color-text-dark)] shadow-md dark:shadow-none">
-              <div className="bg-green-500 rounded-lg p-3 mr-3">
+            <div className="metric-card">
+              <div className="metric-icon bg-green-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 custom-icon"
@@ -214,18 +147,16 @@ const Inicio = () => {
                 </svg>
               </div>
               <div>
-                <h2 className="text-sm font-medium text-gray-400 dark:text-gray-500">
-                  Valor em Estoque
-                </h2>
-                <p className="text-xl font-bold text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
+                <h2 className="metric-label">Valor em Estoque</h2>
+                <p className="metric-value">
                   {loading ? "Carregando..." : formatCurrency(valorTotal)}
                 </p>
               </div>
             </div>
 
-            {/* Card Produto Zerado (antigo Ruptura de Estoque) */}
-            <div className="rounded-lg p-4 flex items-center border border-gray-700 dark:bg-[var(--color-background-dark)] dark:text-[var(--color-text-dark)] shadow-md dark:shadow-none">
-              <div className="bg-red-500 rounded-lg p-3 mr-3">
+            {/* Card Produto Zerado */}
+            <div className="metric-card">
+              <div className="metric-icon bg-red-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 custom-icon"
@@ -242,18 +173,16 @@ const Inicio = () => {
                 </svg>
               </div>
               <div>
-                <h2 className="text-sm font-medium text-gray-400 dark:text-gray-500">
-                  Produto Zerado
-                </h2>
-                <p className="text-xl font-bold text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
+                <h2 className="metric-label">Produto Zerado</h2>
+                <p className="metric-value">
                   {loading ? "Carregando..." : ruptura}
                 </p>
               </div>
             </div>
 
             {/* Card Giro de Estoque */}
-            <div className="rounded-lg p-4 flex items-center border border-gray-700 dark:bg-[var(--color-background-dark)] dark:text-[var(--color-text-dark)] shadow-md dark:shadow-none">
-              <div className="bg-purple-500 rounded-lg p-3 mr-3">
+            <div className="metric-card">
+              <div className="metric-icon bg-purple-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 custom-icon"
@@ -270,10 +199,8 @@ const Inicio = () => {
                 </svg>
               </div>
               <div>
-                <h2 className="text-sm font-medium text-gray-400 dark:text-gray-500">
-                  Giro de Estoque
-                </h2>
-                <p className="text-xl font-bold text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
+                <h2 className="metric-label">Giro de Estoque</h2>
+                <p className="metric-value">
                   {loading
                     ? "Carregando..."
                     : `${giro.toLocaleString()} unidades`}
@@ -283,34 +210,32 @@ const Inicio = () => {
           </div>
 
           {/* Gráfico de barras - Faturamento ao longo do tempo */}
-          <div className="rounded-lg p-4 border border-gray-700 dark:bg-[var(--color-background-dark)] shadow-md dark:shadow-none">
-            <BarChart dataUrl="http://localhost:5000/dashboard/quantidade_por_produto" />
+          <div className="bar-chart chart-container">
+            <BarChart dataUrl="http://localhost:5050/dashboard/quantidade_por_produto" />
           </div>
 
           {/* Gráficos inferiores */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="charts-row">
             {/* Gráfico de pizza - Valor em estoque por área */}
-            <div className="rounded-lg p-4 border border-gray-700 dark:bg-[var(--color-background-dark)] shadow-md dark:shadow-none">
-              <PieChart dataUrl="http://localhost:5000/dashboard/produtos_por_marca" />
+            <div className="pie-chart chart-container">
+              <PieChart dataUrl="http://localhost:5050/dashboard/quantidade_por_marca" />
             </div>
 
             {/* Gráfico de barras horizontal - Valor em estoque por fornecedor */}
-            <div className="rounded-lg p-4 border border-gray-700 dark:bg-[var(--color-background-dark)] shadow-md dark:shadow-none">
-              <ProductQuantityChart dataUrl="http://localhost:5000/dashboard/quantidade_por_condicao" />
+            <div className="product-chart chart-container">
+              <ProductQuantityChart dataUrl="http://localhost:5050/dashboard/quantidade_por_condicao" />
             </div>
           </div>
         </div>
 
         {/* Coluna da direita - Filtros e tabela de detalhamento */}
-        <div className="lg:col-span-3 flex flex-col gap-4">
+        <div className="dashboard-sidebar-right">
           {/* Filtros */}
-          <div className="rounded-lg p-4 border border-gray-700 dark:bg-[var(--color-background-dark)] shadow-md dark:shadow-none">
-            <div className="mb-4">
-              <h3 className="text-sm font-medium mb-2 text-gray-400 dark:text-gray-500">
-                Categoria
-              </h3>
+          <div className="filters-container">
+            <div className="filter-group">
+              <h3 className="filter-label">Categoria</h3>
               <select
-                className="w-full bg-transparent border border-gray-600 dark:border-gray-600 rounded-md p-2 text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]"
+                className="filter-select"
                 value={filtroCategoria}
                 onChange={(e) => setFiltroCategoria(e.target.value)}
               >
@@ -322,112 +247,67 @@ const Inicio = () => {
                 ))}
               </select>
             </div>
-
-            <div>
-              <h3 className="text-sm font-medium mb-2 text-gray-400 dark:text-gray-500">
-                Classificação ABC
-              </h3>
-              <div className="flex gap-2">
-                {["A", "B", "C"].map((classe) => (
-                  <button
-                    key={classe}
-                    className={`w-10 h-10 rounded-md border border-gray-600 dark:border-gray-600 ${
-                      filtroClasse.includes(classe)
-                        ? "bg-white text-black dark:bg-gray-200 dark:text-black"
-                        : "bg-transparent text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]"
-                    }`}
-                    onClick={() => toggleClasseFilter(classe)}
-                  >
-                    {classe}
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* Tabela de detalhamento */}
-          <div className="rounded-lg p-4 flex-grow border border-gray-700 dark:bg-[var(--color-background-dark)] shadow-md dark:shadow-none">
-            <h3 className="text-lg font-medium mb-4 text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
-              Detalhamento
-            </h3>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-[var(--color-line)] dark:border-[var(--color-line-dark)]">
-                    <th className="py-2 px-1 text-left text-sm font-medium text-gray-400 dark:text-gray-500">
+          <div className="detail-table-container">
+            <h3 className="detail-table-title">Detalhamento</h3>
+            <div className="detail-table-wrapper">
+              <table className="detail-table">
+                <thead className="detail-table-header1">
+                  <tr>
+                    <th className="detail-table-cell header-cell text-left">
                       Categoria
                     </th>
-                    <th className="py-2 px-1 text-right text-sm font-medium text-gray-400 dark:text-gray-500">
+                    <th className="detail-table-cell header-cell text-right">
                       Qtd. de Estoque
                     </th>
-                    <th className="py-2 px-1 text-right text-sm font-medium text-gray-400 dark:text-gray-500">
+                    <th className="detail-table-cell header-cell text-right">
                       Valor Estoque
-                    </th>
-                    <th className="py-2 px-1 text-center text-sm font-medium text-gray-400 dark:text-gray-500">
-                      Class. ABC
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {loading ? (
-                    <tr>
+                    <tr className="detail-table-row">
                       <td
-                        colSpan="4"
-                        className="py-4 text-center text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]"
+                        colSpan="3"
+                        className="detail-table-cell loading-cell"
                       >
                         Carregando...
                       </td>
                     </tr>
                   ) : filteredProdutos.length === 0 ? (
-                    <tr>
-                      <td
-                        colSpan="4"
-                        className="py-4 text-center text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]"
-                      >
+                    <tr className="detail-table-row">
+                      <td colSpan="3" className="detail-table-cell empty-cell">
                         Nenhum produto encontrado.
                       </td>
                     </tr>
                   ) : (
                     filteredProdutos.slice(0, 15).map((produto, index) => (
-                      <tr
-                        key={index}
-                        className="border-b border-[var(--color-line)] dark:border-[var(--color-line-dark)]"
-                      >
-                        <td className="py-2 px-1 text-sm text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
-                          <div className="flex items-center">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4 w-4 mr-1 text-gray-400 dark:text-gray-500 custom-icon"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
-                              />
-                            </svg>
-                            {produto.produto}
-                          </div>
+                      <tr key={index} className="detail-table-row">
+                        <td className="detail-table-cell category-cell">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="category-icon"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+                            />
+                          </svg>
+                          {produto.produto}
                         </td>
-                        <td className="py-2 px-1 text-right text-sm text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
+                        <td className="detail-table-cell text-right">
                           {produto.quantidade}
                         </td>
-                        <td className="py-2 px-1 text-right text-sm text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
+                        <td className="detail-table-cell text-right">
                           {formatCurrency(produto.preco * produto.quantidade)}
-                        </td>
-                        <td className="py-2 px-1 text-center">
-                          <div className="flex justify-center">
-                            <span
-                              className={`inline-block w-5 h-5 rounded-full ${getClasseColor(
-                                produto.classe
-                              )} text-white text-xs flex items-center justify-center`}
-                            >
-                              {produto.classe}
-                            </span>
-                          </div>
                         </td>
                       </tr>
                     ))

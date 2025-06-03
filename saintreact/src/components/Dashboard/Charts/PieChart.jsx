@@ -12,15 +12,9 @@ const PieChart = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Memoizar o array COLORS para evitar re-renderizações desnecessárias
   const COLORS = useMemo(
-    () => [
-      "#FF4500", // Laranja vibrante
-      "#2d979b", // Verde
-      "#FFC107", // Amarelo
-      "var(--color-gray-light)", // Cinza claro (#f5f7fa em tema claro / #374151 em tema escuro)
-    ],
-    [] // Array de dependências vazio, pois COLORS é constante
+    () => ["#FF4500", "#2d979b", "#FFC107", "var(--color-gray-light)"],
+    []
   );
 
   useEffect(() => {
@@ -28,28 +22,30 @@ const PieChart = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          "http://localhost:5000/dashboard/valor_estoque_por_marca"
+          "http://localhost:5050/dashboard/percentual_preco_por_marca",
+          { method: "GET", headers: { "Content-Type": "application/json" } }
         );
-
         if (!response.ok) {
-          throw new Error(`Erro na requisição: ${response.status}`);
+          const errorText = await response.text();
+          throw new Error(
+            `Erro na requisição: ${response.status} - ${errorText}`
+          );
         }
-
         const result = await response.json();
-
-        // Transformar os dados para o formato do gráfico e atribuir cores dinamicamente
+        if (!Array.isArray(result)) {
+          throw new Error("Resposta não é um array.");
+        }
         const chartData = result.map((item, index) => ({
           name: item.marca || "Sem Marca",
-          value: item.valor_total,
-          color: COLORS[index % COLORS.length], // Atribui cores de forma cíclica
+          value: Number(item.valor_total) || 0,
+          color: COLORS[index % COLORS.length],
         }));
-
         setData(chartData);
         setError(null);
       } catch (error) {
         console.error("Erro ao buscar dados do gráfico:", error);
         setError(
-          "Não foi possível carregar os dados. Verifique se a API está disponível."
+          "Erro ao carregar os dados. Verifique se o servidor está ativo."
         );
         setData([]);
       } finally {
@@ -58,7 +54,7 @@ const PieChart = () => {
     };
 
     fetchData();
-  }, [COLORS]); // Adicionar COLORS como dependência
+  }, [COLORS]);
 
   const renderCustomizedLabel = ({
     cx,
@@ -70,11 +66,9 @@ const PieChart = () => {
     name,
   }) => {
     const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.7; // Ajuste para centralizar mais
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.7;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    // Determinar cor do texto com base nas variáveis de tema
     const textColor = `var(--color-text-${
       document.body.classList.contains("dark") ? "dark" : "light"
     })`;
@@ -99,8 +93,6 @@ const PieChart = () => {
       <h3 className="text-sm font-medium mb-4 text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
         Distribuição do Valor em Estoque por Marca
       </h3>
-
-      {/* Legenda dinâmica baseada nos dados da API */}
       <div className="flex flex-wrap mb-2">
         {data.map((entry, index) => (
           <div key={`legend-${index}`} className="flex items-center mr-4 mb-1">
@@ -114,25 +106,24 @@ const PieChart = () => {
           </div>
         ))}
       </div>
-
       {loading ? (
-        <div className="flex justify-center items-center h-64">
+        <div className="flex justify-center items-center h-full">
           <div
             className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2"
             style={{ borderColor: "var(--color-primary)" }}
           ></div>
         </div>
       ) : error ? (
-        <div className="flex justify-center items-center h-64 text-red-500">
+        <div className="flex justify-center items-center h-full text-red-500">
           <p>{error}</p>
         </div>
       ) : data.length === 0 ? (
-        <div className="flex justify-center items-center h-64 text-[var(--color-gray-light)] dark:text-[var(--color-gray-dark)]">
+        <div className="flex justify-center items-center h-full text-[var(--color-gray-light)] dark:text-[var(--color-gray-dark)]">
           <p>Nenhum dado disponível</p>
         </div>
       ) : (
-        <div className="relative">
-          <ResponsiveContainer width="100%" height={250}>
+        <div className="relative h-full">
+          <ResponsiveContainer width="100%" height="100%">
             <RechartsPieChart>
               <Pie
                 data={data}
@@ -166,7 +157,7 @@ const PieChart = () => {
             </RechartsPieChart>
           </ResponsiveContainer>
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="rounded-full p-4 custon-icon">
+            <div className="rounded-full p-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-12 w-12 custom-icon"

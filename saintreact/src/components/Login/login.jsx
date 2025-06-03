@@ -36,91 +36,94 @@ function Login() {
       return;
     }
 
-    try {
-      const response = await fetch(
-        "https://www.saintblue.com.br:5000/new_user",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            nome,
-            sobrenome,
-            email,
-            numero: telefone,
-            senha,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        Swal.fire({
-          icon: "success",
-          title: "Sucesso!",
-          text: "Conta criada com sucesso!",
-          confirmButtonColor: "#3085d6",
-        }).then(() => {
-          setIsActive(false); // Alterna para a tela de login
-        });
-      } else {
-        const errorData = await response.json();
-        Swal.fire({
-          icon: "error",
-          title: "Erro ao criar conta",
-          text: errorData.error,
-          confirmButtonColor: "#d33",
-        });
+   
+    
+      try {
+          const response = await fetch("http://localhost:5050/new_user", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                  nome,
+                  sobrenome,
+                  email,
+                  numero: telefone,
+                  senha,
+              }),
+          });
+  
+          if (response.ok) {
+              Swal.fire({
+                  icon: "success",
+                  title: "Sucesso!",
+                  text: "Conta criada com sucesso!",
+                  confirmButtonColor: "#3085d6",
+              }).then(() => {
+                  setIsActive(false); // Alterna para a tela de login
+              });
+          } else {
+              const errorData = await response.json();
+              Swal.fire({
+                  icon: "error",
+                  title: "Erro ao criar conta",
+                  text: errorData.error,
+                  confirmButtonColor: "#d33",
+              });
+          }
+      } catch (error) {
+          Swal.fire({
+              icon: "error",
+              title: "Erro de conexão",
+              text: error.message,
+              confirmButtonColor: "#d33",
+          });
       }
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Erro de conexão",
-        text: error.message,
-        confirmButtonColor: "#d33",
-      });
-    }
   };
 
   // Função para lidar com o envio do formulário de login
   const handleLoginSubmit = async (e) => {
-    e.preventDefault();
-
-    const email = e.target.email.value;
-    const senha = e.target.senha.value;
-
-    try {
-      const response = await fetch("https://www.saintblue.com.br:5000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, senha }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Token:", data.token); // Você pode salvar o token no localStorage ou em outro lugar
-        localStorage.setItem("token", data.token);
-        navigate("/inicio"); // Redireciona diretamente para a página inicial
-      } else {
-        const errorData = await response.json();
-        Swal.fire({
-          icon: "error",
-          title: "Erro ao fazer login",
-          text: errorData.error,
-          confirmButtonColor: "#d33",
-        });
+      e.preventDefault();
+  
+      const email = e.target.email.value;
+      const senha = e.target.senha.value;
+  
+      try {
+          const response = await fetch("http://localhost:5050/login", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email, senha }),
+          });
+  
+          if (response.ok) {
+              const data = await response.json();
+              console.log("Token:", data.token); // Você pode salvar o token no localStorage ou em outro lugar
+              localStorage.setItem("token", data.token);
+              localStorage.setItem("userEmail", email); 
+              navigate("/dashboard"); // Redireciona diretamente para a página inicial
+          } else {
+              const errorData = await response.json();
+              Swal.fire({
+                  icon: "error",
+                  title: "Erro ao fazer login",
+                  text: errorData.error,
+                  confirmButtonColor: "#d33",
+              });
+          }
+      } catch (error) {
+          Swal.fire({
+              icon: "error",
+              title: "Erro de conexão",
+              text: error.message,
+              confirmButtonColor: "#d33",
+          });
       }
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Erro de conexão",
-        text: error.message,
-        confirmButtonColor: "#d33",
-      });
-    }
   };
+    
+
+  // Função para lidar com o envio do formulário de login
 
   return (
     <div className="login-container">
@@ -190,7 +193,7 @@ function Login() {
               </div>
               <h1>Bem-vindo(a)</h1>
               <p>Já possui uma conta?</p>
-              <button className="hidden" onClick={handleLoginClick}>
+              <button onClick={handleLoginClick}>
                 Fazer login
               </button>
               <Link to="/">
@@ -203,7 +206,7 @@ function Login() {
               </div>
               <h1>Bem-vindo(a)</h1>
               <p>Não possui uma conta?</p>
-              <button className="hidden" onClick={handleRegisterClick}>
+              <button onClick={handleRegisterClick}>
                 Criar conta
               </button>
               <Link to="/">

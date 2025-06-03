@@ -19,7 +19,6 @@ const BarChart = ({ dataUrl }) => {
         const response = await fetch(dataUrl);
         const result = await response.json();
 
-        // Transformar dados para o formato esperado pelo gráfico
         const chartData = result.map((item) => ({
           name: item.produto,
           quantidade: item.quantidade,
@@ -28,7 +27,6 @@ const BarChart = ({ dataUrl }) => {
         setData(chartData);
       } catch (error) {
         console.error("Erro ao buscar dados do gráfico:", error);
-        // Dados de exemplo ajustados para quantidade por produto
         setData([
           { name: "Mouse", quantidade: 50 },
           { name: "Teclado", quantidade: 30 },
@@ -56,11 +54,11 @@ const BarChart = ({ dataUrl }) => {
         </div>
       </div>
       {loading ? (
-        <div className="flex justify-center items-center h-64">
+        <div className="flex justify-center items-center h-full">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[var(--color-primary)]"></div>
         </div>
       ) : (
-        <ResponsiveContainer width="100%" height={250}>
+        <ResponsiveContainer width="100%" height="100%">
           <RechartsBarChart
             data={data}
             margin={{ top: 5, right: 5, left: 0, bottom: 5 }}
@@ -91,7 +89,7 @@ const BarChart = ({ dataUrl }) => {
             />
             <Bar
               dataKey="quantidade"
-              fill="var(--color-primary-dark)" // Alterado de #3b82f4 para var(--color-primary-dark)
+              fill="var(--color-primary-dark)"
               radius={[4, 4, 0, 0]}
             />
           </RechartsBarChart>
