@@ -93,11 +93,11 @@ const Estoque = () => {
           </h1>
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 px-4 py-2">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-8 px-4 py-4">
           <input
             type="text"
             placeholder="Busca Rápida"
-            className="w-full sm:w-64 bg-[var(--color-primary)] text-white placeholder-white rounded-lg px-4 py-2 focus:bg-[var(--color-primary-dark)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-dark)] transition-all"
+            className="w-full sm:w-96 bg-gray-300 text-gray-800 placeholder-gray-500 border-2 border-gray-700 rounded-xl px-6 py-3 focus:border-[var(--color-primary)] focus:ring-4 focus:ring-[var(--color-primary)] focus:ring-opacity-50 focus:shadow-lg transition-all duration-300 transform"
             onChange={(e) => {
               const searchValue = e.target.value.toLowerCase();
               if (searchValue.trim() === "") {
@@ -112,7 +112,7 @@ const Estoque = () => {
             }}
           />
           <button
-            className="bg-[var(--color-primary)] text-white rounded-lg px-4 py-2 hover:bg-[var(--color-primary-dark)] active:bg-[var(--color-primary-darker)] shadow-md transition-all"
+            className="bg-[var(--color-primary)] text-white rounded-lg px-6 py-3 hover:bg-[var(--color-primary-dark)] active:bg-[var(--color-primary-darker)] shadow-md transition-all duration-300"
             onClick={() => navigate("/createProduct")}
           >
             Cadastrar

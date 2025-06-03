@@ -312,26 +312,40 @@
 .openPopupBtn:hover {
     transform: scale(1.1);
 }
-.perfil{
-    margin-bottom: 17px;
-    margin-left: 17px;
-    height: 70px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-}
-.perfil :hover{
-    padding: 0 15px;
-    width: 98%;
-    align-items: center;
-    border-radius: 12px;
-    background-color: var(--color-barra-lateral);
-    color: var(--color-texto-menu);
-    background: var(--color-menu-houver);
+
+.perfil:hover {
+    background: var(--color-menu-houver); /* Mesmo efeito de hover dos outros links */
     color: var(--color-menu-houver-texto);
 }
+
+.perfil {
+    display: flex;
+    align-items: center;
+}
+
+.perfil ul {
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.perfil li {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.perfil i {
+    min-width: 40px; /* Alinhado com os ícones dos outros links */
+    font-size: 22px; /* Mesmo tamanho dos outros ícones */
+}
+
+.btnPerfil {
+    font-size: 18px; /* Mesmo tamanho de texto dos outros links */
+    white-space: nowrap;
+}
+
 @media (max-width: 600px){
 
     .menu{

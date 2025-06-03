@@ -150,6 +150,17 @@ function Sidebar() {
               </span>
               <Switch isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
             </div>
+
+            <div className={styles.perfil}>
+              <ul>
+                <li onClick={() => setIsPopUpOpen(true)}>
+                  <i className="bi bi-person-circle"></i>
+                  <span className={styles.btnPerfil}>Perfil</span>
+                </li>
+              </ul>
+            </div>
+            {/* Pop-up */}
+            <Popup isOpen={isPopUpOpen} onClose={() => setIsPopUpOpen(false)} />
             <Link
               to="/login"
               className="flex items-center space-x-2 px-3 py-3 rounded-md transition-colors duration-300 text-sm sm:text-base lg:text-lg font-medium"
@@ -158,16 +169,6 @@ function Sidebar() {
               <span>Sair</span>
             </Link>
           </div>
-          <div className={styles.perfil}>
-            <ul>
-              <li onClick={() => setIsPopUpOpen(true)}>
-                <i className="bi bi-person-circle"></i>
-                <span className={styles.btnPerfil}>Perfil</span>
-              </li>
-            </ul>
-          </div>
-          {/* Pop-up */}
-          <Popup isOpen={isPopUpOpen} onClose={() => setIsPopUpOpen(false)} />
         </div>
       </nav>
     </div>
