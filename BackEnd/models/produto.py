@@ -71,7 +71,7 @@ class Produto:
             FROM estoque WHERE codigo = %s
         """, (codigo,))
         row = cursor.fetchone()
-        columns = [desc[0].strip() for desc in cursor.description]  # <<< limpa os nomes das colunas
+        columns = [desc[0].strip() for desc in cursor.description]  
         produto = dict(zip(columns, row)) if row else None
         cursor.close()
         conn.close()

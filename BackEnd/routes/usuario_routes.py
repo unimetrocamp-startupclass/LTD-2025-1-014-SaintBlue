@@ -22,7 +22,7 @@ def login():
     data = request.get_json()
     user = Usuario.autenticar(data['email'], data['senha'])
     if user:
-        token = gerar_token(data['email'])  # <- aqui gera o token
+        token = gerar_token(data['email'])  
         return jsonify({
             "message": "Login bem-sucedido",
             "token": token 

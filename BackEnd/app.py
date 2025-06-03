@@ -6,11 +6,10 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-CORS(app)  # Liberação de CORS
+CORS(app) 
 
 app.config['SECRET_KEY'] = 'sua_chave_secreta'
 
-# Registro das rotas separadas
 app.register_blueprint(usuario_bp)
 app.register_blueprint(produto_bp)
 app.register_blueprint(dashboard_bp)
