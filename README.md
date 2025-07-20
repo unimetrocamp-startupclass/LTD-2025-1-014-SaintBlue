@@ -45,13 +45,7 @@ SUMÁRIO
 | - |
 Título do Projeto:** SaintBlue: Sistema inteligente para controle e gestão de estoques empresariais
 
-Cliente: Emily Fonseca de Oliveira
 
-CNPJ/CPF: 473.644.078/39
-
-Contato: 19 99425-3962
-
-Email do contato: emillycoutinho83@gmail.com
 
 
 
